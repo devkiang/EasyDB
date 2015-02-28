@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Dream>
+	<DB id="数据源配置">
+		<URL>jdbc:mysql://localhost:3306/</URL>
+		<DBName>db_dream</DBName>
+		<Account>root</Account>
+		<Password></Password>
+		<DBType>MYSQL</DBType>	<!-- 区分大小写，目前只支持MYSQM，MSSQL -->
+		<CreateTable>true</CreateTable>	<!-- true|false|不填写 -->
+		<PrintSQL>true</PrintSQL>
+		<EntityPath>test.model</EntityPath>
+	</DB>
+	
+	<Actions>
+		<Action name='userAction'></Action>
+	</Actions>
+</Dream>

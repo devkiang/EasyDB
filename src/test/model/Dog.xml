@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mapping>
+    <class table="Dog"><!--  表在数据库中的别名 -->
+        <id name="customID"><!--  配置实体类变量-->
+            <generator class="uuuid" /><!--主键生成策略 -->
+            <type>String</type>
+        </id>
+
+        <property name="name"><!--  配置实体类变量-->
+            <column length="20" /><!--  数据库的字段名和字段长度，可不写  -->
+        </property>
+        
+    </class>
+
+</entity-mapping>
