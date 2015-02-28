@@ -1,4 +1,4 @@
-package com.dreamdb.core.interfaces;
+package com.easydb.core.interfaces;
 
 import java.sql.SQLException;
 import java.util.List;

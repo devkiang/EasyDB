@@ -1,4 +1,4 @@
-package com.dreamdb.util;
+package com.easydb.util;
 
 public class EnumUtil {
 	/**

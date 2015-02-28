@@ -1,6 +1,6 @@
-package com.dreamdb.core;
+package com.easydb.core;
 
-import com.dreamdb.util.DreamDBLog;
+import com.easydb.util.DreamDBLog;
 
 
 public class DAOImpSingleton {

@@ -1,6 +1,6 @@
 package test;
 
-import com.dreamdb.util.XMLUtil;
+import com.easydb.util.XMLUtil;
 
 public class XMLUtilTest {
 	public void testRootElement(){

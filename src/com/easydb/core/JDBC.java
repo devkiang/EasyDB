@@ -1,11 +1,11 @@
-package com.dreamdb.core;
+package com.easydb.core;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-import com.dreamdb.util.DreamDBLog;
-import com.dreamdb.util.XMLUtil;
+import com.easydb.util.DreamDBLog;
+import com.easydb.util.XMLUtil;
 
 public class JDBC {
 	private static Connection conn;

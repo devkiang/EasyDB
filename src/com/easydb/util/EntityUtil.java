@@ -1,4 +1,4 @@
-package com.dreamdb.util;
+package com.easydb.util;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -6,7 +6,7 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.dreamdb.entity.Column;
+import com.easydb.entity.Column;
 
 /**
  * 实体类操作工具

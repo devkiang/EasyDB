@@ -1,4 +1,4 @@
-package com.dreamdb.core;
+package com.easydb.core;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -11,11 +11,11 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import com.dreamdb.core.interfaces.EntityDAO;
-import com.dreamdb.entity.Column;
-import com.dreamdb.util.DreamDBLog;
-import com.dreamdb.util.EntityUtil;
-import com.dreamdb.util.EnumUtil.Method;
+import com.easydb.core.interfaces.EntityDAO;
+import com.easydb.entity.Column;
+import com.easydb.util.DreamDBLog;
+import com.easydb.util.EntityUtil;
+import com.easydb.util.EnumUtil.Method;
 
 
 /**

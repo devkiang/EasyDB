@@ -1,4 +1,4 @@
-package com.dreamdb.entity;
+package com.easydb.entity;
 
 /**
  * 

@@ -1,6 +1,6 @@
 package test.model;
 
-import com.dreamdb.core.EntityBase;
+import com.easydb.core.EntityBase;
 
 public class BigPerson extends EntityBase{
 	/**

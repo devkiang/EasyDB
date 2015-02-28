@@ -1,4 +1,4 @@
-package com.dreamdb.util;
+package com.easydb.util;
 
 import java.io.File;
 import java.io.IOException;

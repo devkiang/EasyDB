@@ -1,9 +1,9 @@
-package com.dreamdb.core;
+package com.easydb.core;
 
 import java.io.File;
 
-import com.dreamdb.util.DreamDBLog;
-import com.dreamdb.util.XMLUtil;
+import com.easydb.util.DreamDBLog;
+import com.easydb.util.XMLUtil;
 
 
 /**

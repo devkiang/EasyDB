@@ -1,4 +1,4 @@
-package com.dreamdb.core;
+package com.easydb.core;
 
 import java.sql.Connection;
 import java.sql.SQLException;

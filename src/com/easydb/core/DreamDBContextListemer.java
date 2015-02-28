@@ -3,10 +3,10 @@
 // Decompiler options: packimports(3) 
 // Source File Name:   DreamDBContextListener.java
 
-package com.dreamdb.core;
+package com.easydb.core;
 
-import com.dreamdb.util.DreamDBLog;
-import com.dreamdb.util.XMLUtil;
+import com.easydb.util.DreamDBLog;
+import com.easydb.util.XMLUtil;
 
 import java.io.File;
 

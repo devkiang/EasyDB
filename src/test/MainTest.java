@@ -2,7 +2,7 @@ package test;
 
 import java.util.List;
 
-import com.dreamdb.core.ContextLoaderListener;
+import com.easydb.core.ContextLoaderListener;
 
 import test.model.BigPerson;
 
