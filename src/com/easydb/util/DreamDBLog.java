@@ -24,10 +24,10 @@ public class DreamDBLog {
 	 * @param msg
 	 */
 	public static void sql(String msg){
-		StringBuilder builder=new StringBuilder("【sql语句】:\n");
-		builder.append(msg);
-		builder.append("");
 		if(XMLUtil.getInstance().getPrintSQL().equals("true")){
+			StringBuilder builder=new StringBuilder("【sql语句】:\n");
+			builder.append(msg);
+			builder.append("");
 			System.out.println(builder);
 		}
 	}

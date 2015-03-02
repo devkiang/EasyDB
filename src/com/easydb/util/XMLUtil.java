@@ -8,6 +8,8 @@ import org.jdom2.Element;
 import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
 
+import com.easydb.core.EasyDBException;
+
 
 
 
@@ -39,8 +41,12 @@ public class XMLUtil {
 	public void parseCoreXML(){
 		SAXBuilder builder = new SAXBuilder();
 		if(xmlName==null||xmlName.length()<1){
-			DreamDBLog.error("没有读取到配置文件");
-			return;
+			try {
+				throw new EasyDBException("没有读取到配置文件");
+			} catch (EasyDBException e) {
+				e.printStackTrace();
+				return;
+			}
 		}
 		try {
 			Document doc = builder.build(new File(this.getClass().getClassLoader()

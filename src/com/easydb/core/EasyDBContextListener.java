@@ -16,11 +16,11 @@ import javax.servlet.ServletContextListener;
 // Referenced classes of package com.dreamdb.core:
 //            DreamDBLog
 
-public class DreamDBContextListemer
+public class EasyDBContextListener
     implements ServletContextListener
 {
 
-    public DreamDBContextListemer()
+    public EasyDBContextListener()
     {
     }
 

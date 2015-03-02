@@ -2,9 +2,9 @@
 <Dream>
 	<DB id="数据源配置">
 		<URL>jdbc:mysql://localhost:3306/</URL>
-		<DBName>db_dream</DBName>
+		<DBName>db_easy</DBName>
 		<Account>root</Account>
-		<Password></Password>
+		<Password>5523288q</Password>
 		<DBType>MYSQL</DBType>	<!-- 区分大小写，目前只支持MYSQM，MSSQL -->
 		<CreateTable>true</CreateTable>	<!-- true|false|不填写 -->
 		<PrintSQL>true</PrintSQL>

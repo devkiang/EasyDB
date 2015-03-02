@@ -19,10 +19,11 @@ public class MainTest {
 //		bigPerson.setAge(55);
 //		bigPerson.save();
 		BigPerson bigPerson=new BigPerson();
-		List<BigPerson> results=bigPerson.findListBySQL("name=? and id=?", "test",1);
-		for (BigPerson big : results) {
-			big.print();
-		}
+//		List<BigPerson> results=bigPerson.findListBySQL("name=? and id=?", "test",1);
+		bigPerson.load();
+//		for (BigPerson big : results) {
+//			big.print();
+//		}
 //		bigPerson.setId(2);
 //		bigPerson=bigPerson.load();
 //		bigPerson.setName("dog");

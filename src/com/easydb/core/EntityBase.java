@@ -60,8 +60,12 @@ public abstract class EntityBase implements Serializable {
 
 	public boolean delete() {
 		if (this.getId() == null || this.getId() < 0) {
-			System.out.println("delete方法需要传入ID");
-			return false;
+			try {
+				throw new EasyDBException("delete方法需要传入ID");
+			} catch (EasyDBException e) {
+				e.printStackTrace();
+				return false;
+			}
 		}
 		try {
 			entityDAO.deleteById(this, this.getId());
@@ -75,8 +79,13 @@ public abstract class EntityBase implements Serializable {
 	@SuppressWarnings("unchecked")
 	public <T> T load() {
 		if (this.getId() == null || this.getId() < 0) {
-			System.out.println("load方法需要传入ID");
-			return null;
+			try {
+				throw new EasyDBException("load方法需要传入ID");
+			} catch (EasyDBException e) {
+				e.printStackTrace();
+				return null;
+			}
+			
 		}
 		return (T) entityDAO.findById(this.getClass(), this.getId());
 	}
