@@ -72,6 +72,15 @@ public class EntityDAOMySQLImplement implements EntityDAO{
 	@Override
 	public void update(Object entity) throws SQLException {
 		EntityUtil entityUtil=new EntityUtil(entity);
+		EntityBase entityBase=(EntityBase) entity;
+		if(entityBase.getId()==null||entityBase.getId()==0){
+			try {
+				throw new EasyDBException("执行update操作必须要传入ID");
+			} catch (EasyDBException e) {
+				e.printStackTrace();
+				return;
+			}
+		}
 		String tableName=entityUtil.getTableName();
 		StringBuffer sql=new StringBuffer();
 		//UPDATE 表名称 SET 列名称 = 新值 WHERE 列名称 = 某值
@@ -90,7 +99,7 @@ public class EntityDAOMySQLImplement implements EntityDAO{
 			}
 		}
 		String set=setStr.substring(0, setStr.lastIndexOf(","));
-		EntityBase entityBase=(EntityBase) entity;
+		
 		sql.append(set).append(" where id=").append(entityBase.getId());
 			DreamDBLog.sql(sql.toString());
 			JDBC.getConnetion().prepareStatement(sql.toString()).executeUpdate();
@@ -311,6 +320,29 @@ public class EntityDAOMySQLImplement implements EntityDAO{
 	public void autoCreateTable(Object entity) {
 		StringBuilder sql = new StringBuilder("CREATE TABLE if not exists ");
 		EntityUtil entityUtil=new EntityUtil(entity);
+		
+		//----- 检查表是否存在 ------
+		StringBuilder checkTableSql=new StringBuilder("SHOW TABLES LIKE '");//检查是否存在表
+		checkTableSql.append(entityUtil.getTableName());
+		checkTableSql.append("';");
+		boolean tableExists=false;//表格是否存在
+		try {
+			ResultSet rs=JDBC.getConnetion().prepareStatement(checkTableSql.toString()).executeQuery();
+			if(rs.next()){
+				tableExists=true;
+			}else {
+				tableExists=false;
+			}
+		} catch (SQLException e1) {
+			tableExists=false;
+			e1.printStackTrace();
+		}
+		//----- 检查结束  --- - -- --
+		
+		if(tableExists==true){//如果存在将不再去建表
+			return;
+		}
+		
 		Map<String, Column> columns=entityUtil.getColumns();
 		String tableName=entityUtil.getTableName();
 		sql.append(tableName);

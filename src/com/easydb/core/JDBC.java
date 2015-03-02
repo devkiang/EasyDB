@@ -14,8 +14,8 @@ public class JDBC {
 	if(conn==null){
 				try {
 					XMLUtil util=XMLUtil.getInstance();
-					util.xmlName="Dream";
-					util.parseCoreXML();
+//					util.xmlName="Dream";
+//					util.parseCoreXML();
 				String url=util.getDBURL()+util.getDBName()+"?characterEncoding=UTF-8";
 				String dbname=util.getDBAccount();
 				String dbpassword=util.getDBPassword();

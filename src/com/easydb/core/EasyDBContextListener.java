@@ -31,7 +31,7 @@ public class EasyDBContextListener
     public void contextInitialized(ServletContextEvent arg0)
     {
         XMLUtil util = XMLUtil.getInstance();
-        util.xmlName = "Dream";
+        util.xmlName = "Easy";
         util.parseCoreXML();
         String configPath = (new StringBuilder(String.valueOf(getClass().getClassLoader().getResource("").getPath()))).append(XMLUtil.getInstance().getEntityPath().replace(".", "/")).toString();
         String entityPath = (new StringBuilder()).append(configPath).toString();

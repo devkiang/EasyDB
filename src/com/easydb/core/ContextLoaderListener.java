@@ -20,7 +20,7 @@ public class ContextLoaderListener{
 	 */
 	public void init(){
 		XMLUtil util=XMLUtil.getInstance();
-		util.xmlName="Dream";//配置文件名
+		util.xmlName="Easy";//配置文件名
 		util.parseCoreXML();//解析xml文件
 		String configPath=XMLUtil.getInstance().getEntityPath().replace(".", "/");//获取实体类目录
 		String entityPath="src/"+configPath;
