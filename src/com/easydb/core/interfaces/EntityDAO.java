@@ -23,13 +23,13 @@ public interface EntityDAO {
 	 * 更新数据
 	 * @param id
 	 */
-	public void deleteById(Object entity,Integer id)throws SQLException;
+	public void deleteById(Object entity,Object id)throws SQLException;
 	/**
 	 * 根据ID查询对象
 	 * @param id
 	 * @return
 	 */
-	public Object findById(Class<?> clasz,Integer id);
+	public Object findById(Class<?> clasz,Object id);
 	/**
 	 * 根据sql语句来查询结果集
 	 * @param sql

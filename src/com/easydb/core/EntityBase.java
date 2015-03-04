@@ -20,13 +20,13 @@ public abstract class EntityBase implements Serializable {
 	/**
 	 * 
 	 */
-	private Integer id;
+	private Object id;
 
-	public Integer getId() {
-		return id;
+	public Object getId() {
+		return this.id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Object id) {
 		this.id = id;
 	}
 
@@ -59,7 +59,7 @@ public abstract class EntityBase implements Serializable {
 	}
 
 	public boolean delete() {
-		if (this.getId() == null || this.getId() < 0) {
+		if (this.getId() == null) {
 			try {
 				throw new EasyDBException("delete方法需要传入ID");
 			} catch (EasyDBException e) {
@@ -78,7 +78,7 @@ public abstract class EntityBase implements Serializable {
 
 	@SuppressWarnings("unchecked")
 	public <T> T load() {
-		if (this.getId() == null || this.getId() < 0) {
+		if (this.getId() == null ) {
 			try {
 				throw new EasyDBException("load方法需要传入ID");
 			} catch (EasyDBException e) {

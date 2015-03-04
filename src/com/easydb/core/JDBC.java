@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-import com.easydb.util.DreamDBLog;
+import com.easydb.util.EasyDBLog;
 import com.easydb.util.XMLUtil;
 
 public class JDBC {
@@ -27,7 +27,7 @@ public class JDBC {
 				}else if(util.getDBType().equals("MSSQL")){
 					//其他数据库
 				}else{
-					DreamDBLog.error("错误的数据库类型配置:"+util.getDBType());
+					EasyDBLog.error("错误的数据库类型配置:"+util.getDBType());
 				}
 				conn = DriverManager.getConnection(url, dbname, dbpassword);
 				} catch (SQLException e) {

@@ -1,5 +1,7 @@
 package test.model;
 
+import com.easydb.annotation.Id;
+import com.easydb.annotation.Id.Type;
 import com.easydb.core.EntityBase;
 
 public class BigPerson extends EntityBase{
@@ -7,6 +9,10 @@ public class BigPerson extends EntityBase{
 	 * 
 	 */
 	private static final long serialVersionUID = 8211603916356703237L;
+	
+	@Id(type=Type.String)
+	private String id;
+
 	private String name;
 	private String address;
 	private boolean sex;

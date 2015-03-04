@@ -1,7 +1,7 @@
 package com.easydb.util;
 
 
-public class DreamDBLog {
+public class EasyDBLog {
 	
 	
 	

@@ -1,6 +1,6 @@
 package com.easydb.core;
 
-import com.easydb.util.DreamDBLog;
+import com.easydb.util.EasyDBLog;
 
 
 public class DAOImpSingleton {
@@ -8,7 +8,7 @@ public class DAOImpSingleton {
 	public static EntityDAOMySQLImplement getMySQLImplement(){
 		if(mySQLImplement==null){
 			mySQLImplement=new EntityDAOMySQLImplement();
-			DreamDBLog.debug("EntityDAOMySQLImplement启动完毕");
+			EasyDBLog.debug("EntityDAOMySQLImplement启动完毕");
 		}
 		return mySQLImplement;
 	}

@@ -4,7 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.easydb.core.ContextLoaderListener;
-import com.easydb.util.DreamDBLog;
+import com.easydb.util.EasyDBLog;
 
 import test.model.BigPerson;
 
@@ -19,31 +19,34 @@ public class MainTest {
 		
 		
 							
-		for (int i = 0; i < 10000; i++) {
-			BigPerson bigPerson=new BigPerson();
-			bigPerson.setName("test"+i);
-			bigPerson.setSex(true);
-			bigPerson.setAge(i);
-			bigPerson.save();
-		}
+//		for (int i = 0; i < 10000; i++) {
+//			BigPerson bigPerson=new BigPerson();
+//			bigPerson.setId(i);
+//			bigPerson.setName("test"+i);
+//			bigPerson.setSex(true);
+//			bigPerson.setAge(i);
+//			bigPerson.save();
+//		}
 		
-		
+		BigPerson bigPerson=new BigPerson();
+		bigPerson.setId("2");
+//		System.out.println(bigPerson.getId());
+//		List<BigPerson> results=bigPerson.findListBySQL("sex=? and name=?", true,"test5");
+		bigPerson=bigPerson.load();
+		bigPerson.print();
+		bigPerson.setAge(99);
+		bigPerson.load();
+		bigPerson.print();
+//		for (BigPerson big : results) {
+//			big.print();
+//		}
 		
 		
 		Date d2=new Date();
 		long t2=d2.getTime();
 		long exetime=t2-t1;
-		DreamDBLog.alert("耗时   "+exetime+" ms");
-//		BigPerson bigPerson=new BigPerson();
-//		bigPerson.setId(2);
-////		List<BigPerson> results=bigPerson.findListBySQL("name=? and id=?", "test",1);
-//		bigPerson=bigPerson.load();
-//		bigPerson.print();
-//		bigPerson.setAge(99);
-//		bigPerson.load();
-//		for (BigPerson big : results) {
-//			big.print();
-//		}
+		EasyDBLog.alert("耗时   "+exetime+" ms");
+
 //		bigPerson.setId(2);
 //		bigPerson=bigPerson.load();
 //		bigPerson.setName("dog");

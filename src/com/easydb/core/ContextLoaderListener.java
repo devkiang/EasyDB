@@ -2,7 +2,7 @@ package com.easydb.core;
 
 import java.io.File;
 
-import com.easydb.util.DreamDBLog;
+import com.easydb.util.EasyDBLog;
 import com.easydb.util.XMLUtil;
 
 
@@ -38,12 +38,13 @@ public class ContextLoaderListener{
         				System.out.println(o.getClass()+" 加载完毕");
         			}
 				} catch (InstantiationException e) {
-					DreamDBLog.error("目录中包含错误的实体类");
+					EasyDBLog.error("目录中包含错误的实体类");
 					e.printStackTrace();
 				} catch (IllegalAccessException e) {
 					e.printStackTrace();
 				} catch (java.lang.ClassCastException e) {
-					DreamDBLog.error("目录中包含非法的实体类:"+entityPathDot+"."+name+",Dream实体类必须继承自EntityBase类");
+					EasyDBLog.error("目录中包含非法的实体类:"+entityPathDot+"."+name+",Dream实体类必须继承自EntityBase类");
+					e.printStackTrace();
 				} catch (ClassNotFoundException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

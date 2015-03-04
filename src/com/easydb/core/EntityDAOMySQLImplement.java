@@ -11,9 +11,12 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import com.easydb.annotation.Id;
+import com.easydb.annotation.Id.Type;
 import com.easydb.core.interfaces.EntityDAO;
 import com.easydb.entity.Column;
-import com.easydb.util.DreamDBLog;
+import com.easydb.util.AnnotationUtil;
+import com.easydb.util.EasyDBLog;
 import com.easydb.util.EntityUtil;
 import com.easydb.util.EnumUtil.Method;
 
@@ -63,7 +66,7 @@ public class EntityDAOMySQLImplement implements EntityDAO{
 		valuesSql=new StringBuffer(valuesSql.substring(0, valuesSql.length()-2));
 		columnNameSql=new StringBuffer(columnNameSql.subSequence(0, columnNameSql.length()-2));
 		sql.append(columnNameSql).append(") VALUES (").append(valuesSql).append(");");;
-		DreamDBLog.sql(sql.toString());
+		EasyDBLog.sql(sql.toString());
 			JDBC.getConnetion().prepareStatement(sql.toString()).executeUpdate();
 		
 		
@@ -73,7 +76,7 @@ public class EntityDAOMySQLImplement implements EntityDAO{
 	public void update(Object entity) throws SQLException {
 		EntityUtil entityUtil=new EntityUtil(entity);
 		EntityBase entityBase=(EntityBase) entity;
-		if(entityBase.getId()==null||entityBase.getId()==0){
+		if(entityBase.getId()==null){
 			try {
 				throw new EasyDBException("执行update操作必须要传入ID");
 			} catch (EasyDBException e) {
@@ -101,12 +104,12 @@ public class EntityDAOMySQLImplement implements EntityDAO{
 		String set=setStr.substring(0, setStr.lastIndexOf(","));
 		
 		sql.append(set).append(" where id=").append(entityBase.getId());
-			DreamDBLog.sql(sql.toString());
+			EasyDBLog.sql(sql.toString());
 			JDBC.getConnetion().prepareStatement(sql.toString()).executeUpdate();
 	}
 
 	@Override
-	public void deleteById(Object entity,Integer id) throws SQLException {
+	public void deleteById(Object entity,Object id) throws SQLException {
 		EntityUtil entityUtil=new EntityUtil(entity);
 		String tableName=entityUtil.getTableName();
 		StringBuffer sql=new StringBuffer();
@@ -114,13 +117,13 @@ public class EntityDAOMySQLImplement implements EntityDAO{
 		sql.append(" delete from ").append(tableName);
 		EntityBase entityBase=(EntityBase) entity;
 		sql.append(" where id=").append(entityBase.getId());
-			DreamDBLog.sql(sql.toString());
+			EasyDBLog.sql(sql.toString());
 			JDBC.getConnetion().prepareStatement(sql.toString()).executeUpdate();
 		
 	}
 
 	@Override
-	public Object findById(Class<?> clasz,Integer id) {
+	public Object findById(Class<?> clasz,Object id) {
 		Object entity = null;
 		try {
 			entity=clasz.newInstance();
@@ -144,7 +147,7 @@ public class EntityDAOMySQLImplement implements EntityDAO{
 			}
 			String columnNameStr=columnName.substring(0,columnName.lastIndexOf(",") );
 			sql.append(columnNameStr).append(" from ").append(tableName).append(" where id=").append(id);
-			DreamDBLog.sql(sql.toString());
+			EasyDBLog.sql(sql.toString());
 			ResultSet rs=JDBC.getConnetion().prepareStatement(sql.toString()).executeQuery();
 			Collection<Column> c2 = columus.values();
 			Iterator<Column> it2 = c2.iterator();
@@ -181,6 +184,9 @@ public class EntityDAOMySQLImplement implements EntityDAO{
 						java.lang.reflect.Method method = entity.getClass().getMethod(setMethodName, parameterTypes);
 						method.invoke(entity, new Object[] { v }); 
 				    }else {
+				    	if(setMethodName.equals("setId")){
+				    		parameterTypes[0] = Object.class;
+				    	}
 						java.lang.reflect.Method method = entity.getClass().getMethod(setMethodName, parameterTypes);
 						method.invoke(entity, new Object[] { value }); 
 				    }
@@ -241,7 +247,7 @@ public class EntityDAOMySQLImplement implements EntityDAO{
 			}
 			String columnNameStr=columnName.substring(0,columnName.lastIndexOf(",") );//截取掉最后以为的逗号
 			sql.append(columnNameStr).append(" from ").append(tableName).append(" where ").append(conditionSQL);//把用户传来的SQL条件语句添加到SQL语句中
-			DreamDBLog.sql(sql.toString());
+			EasyDBLog.sql(sql.toString());
 			
 			//--------------------给传来的占位符设置上参数--------------------
 			PreparedStatement ps=JDBC.getConnetion().prepareStatement(sql.toString());
@@ -286,6 +292,9 @@ public class EntityDAOMySQLImplement implements EntityDAO{
 						java.lang.reflect.Method method = entity.getClass().getMethod(setMethodName, parameterTypes);
 						method.invoke(entity, new Object[] { v }); 
 				    }else {
+				    	if(setMethodName.equals("setId")){
+				    		parameterTypes[0] = Object.class;
+				    	}
 						java.lang.reflect.Method method = entity.getClass().getMethod(setMethodName, parameterTypes);
 						method.invoke(entity, new Object[] { value }); 
 				    }
@@ -318,6 +327,7 @@ public class EntityDAOMySQLImplement implements EntityDAO{
 	 */
 	@Override
 	public void autoCreateTable(Object entity) {
+		boolean isIdOverride=false;
 		StringBuilder sql = new StringBuilder("CREATE TABLE if not exists ");
 		EntityUtil entityUtil=new EntityUtil(entity);
 		
@@ -346,27 +356,47 @@ public class EntityDAOMySQLImplement implements EntityDAO{
 		Map<String, Column> columns=entityUtil.getColumns();
 		String tableName=entityUtil.getTableName();
 		sql.append(tableName);
-		sql.append(" (\n ");
-		sql.append(this.getPropertyValueByKey("id"));
-		if (this.getPropertyValueByKey("id.generator").equals("uuuid")) {
-			sql.append(" varchar(32) NOT NULL ,");
-		} else {
-			sql.append(" int NOT NULL  AUTO_INCREMENT  ,");
-		}
+		sql.append("(");
 
 		Collection<Column> c = columns.values();
 		Iterator<Column> it = c.iterator();
 		while (it.hasNext()) {
 			sql.append("\n ");
 			Column column = (Column) it.next();
+			
 			sql.append(column.getName()).append(" ");
-			sql.append(column.getType());
+			
+			if(column.getName().equals(this.getPropertyValueByKey("id"))){//id被重写
+				isIdOverride=true;
+				String ant =   AnnotationUtil.getShared().loadAnnotation(Id.class, "type", entity.getClass().getName()).toString();
+				
+//				System.out.println(antMap.size());
+//				Iterator i=antMap.keySet().iterator();
+//				while(i.hasNext()){
+//					String s=(String) i.next();
+//					System.out.println("      ________"+s);
+//				}
+				if (ant.equals("String")) {
+					sql.append(" varchar(32) NOT NULL ");
+				} else {
+					sql.append(" int NOT NULL  AUTO_INCREMENT ");
+				}
+			}else {
+				sql.append(column.getType());
+			}
 			sql.append(" ,");
 		}
+		if(isIdOverride==false){//id没有被重写
+			System.out.println("重写了");
+			sql.append(" \n ");
+			sql.append(this.getPropertyValueByKey("id"));
+			sql.append(" int NOT NULL  AUTO_INCREMENT  ,");
+		}
+		
 		sql.append("PRIMARY KEY  (");
 		sql.append(this.getPropertyValueByKey("id"));
 		sql.append(") \n);");
-		DreamDBLog.sql(sql.toString());
+		EasyDBLog.sql(sql.toString());
 		try {
 			JDBC.getConnetion().prepareStatement(sql.toString()).executeUpdate();
 		} catch (SQLException e) {

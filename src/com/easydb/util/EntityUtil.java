@@ -89,7 +89,11 @@ public class EntityUtil {
 					Object value=method.invoke(o);
 					Column column=new Column();
 					column.setName(field.getName());
+					
 					column.setType(this.getDBColumnType(field.getType()));
+					if(column.getName().equals("id")){
+						System.out.println(column.getType());
+					}
 					column.setValue(value);
 					columus.put(field.getName(), column);
 				} catch (SecurityException e) {

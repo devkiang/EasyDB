@@ -5,7 +5,7 @@
 
 package com.easydb.core;
 
-import com.easydb.util.DreamDBLog;
+import com.easydb.util.EasyDBLog;
 import com.easydb.util.XMLUtil;
 
 import java.io.File;
@@ -52,12 +52,12 @@ public class EasyDBContextListener
                 {
                     EntityBase o = (EntityBase)Class.forName((new StringBuilder(String.valueOf(entityPathDot))).append(".").append(name).toString()).newInstance();
                     o.autoCreateTable();
-                    System.out.println((new StringBuilder()).append(o.getClass()).append(" \uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD").toString());
+                    System.out.println((new StringBuilder()).append(o.getClass()).append("加载完毕").toString());
                 }
             }
             catch(InstantiationException e)
             {
-                DreamDBLog.error("\u013F\274\uFFFD\u0430\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\u02B5\uFFFD\uFFFD\uFFFD\uFFFD");
+                EasyDBLog.error("目录中包含错误的实体类");
                 e.printStackTrace();
             }
             catch(IllegalAccessException e)
@@ -66,7 +66,7 @@ public class EasyDBContextListener
             }
             catch(ClassCastException e)
             {
-                DreamDBLog.error((new StringBuilder("\u013F\274\uFFFD\u0430\uFFFD\u01F7\uFFFD\uFFFD\uFFFD\u02B5\uFFFD\uFFFD\uFFFD\uFFFD:")).append(entityPathDot).append(".").append(name).append(",Dream\u02B5\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\u0333\uFFFD\uFFFD\uFFFDEntityBase\uFFFD\uFFFD").toString());
+                EasyDBLog.error((new StringBuilder("目录中包含非法的实体类:")).append(entityPathDot).append(".").append(name).append(",Dream实体类必须继承自EntityBase类").toString());
             }
             catch(ClassNotFoundException e)
             {
