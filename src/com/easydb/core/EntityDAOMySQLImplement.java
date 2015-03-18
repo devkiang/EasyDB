@@ -12,7 +12,6 @@ import java.util.List;
 import java.util.Map;
 
 import com.easydb.annotation.Id;
-import com.easydb.annotation.Id.Type;
 import com.easydb.core.interfaces.EntityDAO;
 import com.easydb.entity.Column;
 import com.easydb.util.AnnotationUtil;
@@ -198,22 +197,16 @@ public class EntityDAOMySQLImplement implements EntityDAO{
 		} catch (IllegalAccessException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (SecurityException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (NoSuchFieldException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (NoSuchMethodException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IllegalArgumentException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (InvocationTargetException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return entity;
@@ -425,6 +418,41 @@ public class EntityDAOMySQLImplement implements EntityDAO{
 //			return "customID";
 //		}
 		return "id";
+	}
+
+	@Override
+	public boolean deleteAll(Object entity) {
+		EntityUtil entityUtil=new EntityUtil(entity);
+		StringBuilder sql=new StringBuilder("delete FROM");
+		sql.append(entityUtil.getTableName());
+		try {
+			JDBC.getConnetion().prepareStatement(sql.toString()).executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
+
+	@Override
+	public long count(Object entity) {
+		EntityUtil entityUtil=new EntityUtil(entity);
+		StringBuilder sql=new StringBuilder("select count(id) from ");
+		sql.append(entityUtil.getTableName());
+		ResultSet result;
+		long count = 0;
+		try {
+			EasyDBLog.sql(sql.toString());
+			result=JDBC.getConnetion().prepareStatement(sql.toString()).executeQuery();
+			while(result.next()){
+				count=result.getLong(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return 0;
+		}
+		return count;
+		
 	}
 	
 	/**

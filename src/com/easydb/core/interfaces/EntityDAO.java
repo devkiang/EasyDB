@@ -41,5 +41,17 @@ public interface EntityDAO {
 	 * @param entity
 	 */
 	public void autoCreateTable(Object entity);
+	
+	/**
+	 * 删除该表所有数据
+	 * @param entity
+	 */
+	public boolean deleteAll(Object entity);
+	
+	/**
+	 * 统计该表数据行
+	 * @param entity
+	 */
+	public long count(Object entity);
 }
 

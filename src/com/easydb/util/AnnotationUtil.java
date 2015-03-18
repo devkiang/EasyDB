@@ -4,8 +4,6 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.HashMap;
-import java.util.Map;
 
 public class AnnotationUtil {
 	public static AnnotationUtil shared;
@@ -18,9 +16,9 @@ public class AnnotationUtil {
 		return shared;
 	}
 	
-	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@SuppressWarnings({ "unchecked", "rawtypes","unused" })
 	public Object loadAnnotation(Class annotationClasss,String annotationField,String className) {
-        Method[] methods = null;
+		Method[] methods = null;
         Field[] fields=null;
         Object value = null;
 		try {
@@ -41,22 +39,16 @@ public class AnnotationUtil {
 	            }  
 	        }  
 		} catch (SecurityException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (NoSuchMethodException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IllegalArgumentException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (InvocationTargetException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (ClassCastException e) {
 			e.printStackTrace();

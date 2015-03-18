@@ -119,6 +119,15 @@ public abstract class EntityBase implements Serializable {
 		}
 		return buffer.toString();
 	}
+	
+	public boolean deleteAll(){
+		
+		return entityDAO.deleteAll(this);
+	}
+	
+	public long count(){
+		return entityDAO.count(this);
+	}
 
 	public void print() {
 		EntityUtil entityUtil = new EntityUtil(this);

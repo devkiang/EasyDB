@@ -1,7 +1,6 @@
 package test;
 
 import java.util.Date;
-import java.util.List;
 
 import com.easydb.core.ContextLoaderListener;
 import com.easydb.util.EasyDBLog;
@@ -29,14 +28,15 @@ public class MainTest {
 //		}
 		
 		BigPerson bigPerson=new BigPerson();
-		bigPerson.setId("2");
+//		bigPerson.setId("2");
 //		System.out.println(bigPerson.getId());
 //		List<BigPerson> results=bigPerson.findListBySQL("sex=? and name=?", true,"test5");
-		bigPerson=bigPerson.load();
-		bigPerson.print();
-		bigPerson.setAge(99);
-		bigPerson.load();
-		bigPerson.print();
+//		bigPerson=bigPerson.load();
+//		bigPerson.print();
+//		bigPerson.setAge(99);
+//		bigPerson.load();
+//		bigPerson.print();
+		System.out.println("____count_____:"+bigPerson.count());
 //		for (BigPerson big : results) {
 //			big.print();
 //		}
